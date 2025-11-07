@@ -1,4 +1,4 @@
-package abc;
+package laborator2;
 
 public interface AlignStrategy {
 	void render(Paragraph p, Object context);
