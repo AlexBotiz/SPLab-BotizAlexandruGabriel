@@ -34,4 +34,18 @@ public class Section implements Element {
     public Element get(int index) {
         return elements.get(index);
     }
+    
+    @Override
+    public Section clone() {
+        Section copy = new Section(this.title);
+        for (Element e : this.elements) {
+            try {
+                copy.add(e.clone());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return copy;
+    }
+
 }

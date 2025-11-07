@@ -20,8 +20,16 @@ public class Image implements Element {
 
     @Override
     public void add(Element e) {}
+    
     @Override
     public void remove(Element e) {}
+    
     @Override
     public Element get(int index) { return null; }
+    
+    @Override
+    public Image clone() {
+        return new Image(this.url);
+    }
+
 }
