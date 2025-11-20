@@ -1,5 +1,5 @@
-package laborator2;
+package laborator;
 
 public interface AlignStrategy {
-	void render(Paragraph p, Object context);
+    void render(Paragraph p, Object context);
 }

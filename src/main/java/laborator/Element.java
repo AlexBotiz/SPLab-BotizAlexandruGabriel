@@ -1,9 +1,9 @@
-package laborator2;
+package laborator;
 
 public interface Element {
-	void print();
-	void add(Element e);
-	void remove(Element e);
-	Element get(int i);
-	Element clone();
+    void print();
+    void add(Element e);
+    void remove(Element e);
+    Element get(int i);
+    Element clone();
 }

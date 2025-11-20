@@ -1,4 +1,4 @@
-package laborator2;
+package laborator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class Section implements Element {
     public Element get(int index) {
         return elements.get(index);
     }
-    
+
     @Override
     public Section clone() {
         Section copy = new Section(this.title);

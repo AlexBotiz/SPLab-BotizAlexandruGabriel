@@ -1,4 +1,4 @@
-package laborator2;
+package laborator;
 
 public class AlignCenter implements AlignStrategy {
     @Override
