@@ -1,38 +1,37 @@
-package labexample.service;
+package labexample;
 
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BooksService {
 
-    private final Map<Integer, String> books = new HashMap<>();
-    private int currentId = 1;
+    private final BooksRepository booksRepository;
 
-    public List<String> getAllBooks() {
-        return new ArrayList<>(books.values());
+    public BooksService(BooksRepository booksRepository) {
+        this.booksRepository = booksRepository;
     }
 
-    public String getBookById(int id) {
-        return books.getOrDefault(id, "Book not found");
+    public Book createBook(Book book) {
+        return booksRepository.save(book);
     }
 
-    public String createBook(String book) {
-        int id = currentId++;
-        books.put(id, book);
-        return "Book created with id " + id;
+    public List<Book> getAllBooks() {
+        return booksRepository.findAll();
     }
 
-    public String updateBook(int id, String book) {
-        if (!books.containsKey(id)) return "Book not found";
-        books.put(id, book);
-        return "Book " + id + " updated";
+    public Optional<Book> getBookById(int id) {
+        return booksRepository.findById(id);
     }
 
-    public String deleteBook(int id) {
-        if (!books.containsKey(id)) return "Book not found";
-        books.remove(id);
-        return "Book " + id + " deleted";
+    public Book updateBook(int id, Book updatedBook) {
+        updatedBook.setId(id);
+        return booksRepository.save(updatedBook);
+    }
+
+    public void deleteBook(int id) {
+        booksRepository.deleteById(id);
     }
 }

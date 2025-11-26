@@ -1,9 +1,12 @@
 package labexample.commands;
 
 import labexample.Command;
-import labexample.service.BooksService;
+import labexample.Book;
+import labexample.BooksService;
 
-public class GetBookByIdCommand implements Command<String> {
+import java.util.Optional;
+
+public class GetBookByIdCommand implements Command<Optional<Book>> {
 
     private final BooksService booksService;
     private final int id;
@@ -14,7 +17,7 @@ public class GetBookByIdCommand implements Command<String> {
     }
 
     @Override
-    public String execute() {
+    public Optional<Book> execute() {
         return booksService.getBookById(id);
     }
 }

@@ -1,9 +1,9 @@
 package labexample.commands;
 
 import labexample.Command;
-import labexample.service.BooksService;
+import labexample.BooksService;
 
-public class DeleteBookCommand implements Command<String> {
+public class DeleteBookCommand implements Command<Void> {
 
     private final BooksService booksService;
     private final int id;
@@ -14,7 +14,8 @@ public class DeleteBookCommand implements Command<String> {
     }
 
     @Override
-    public String execute() {
-        return booksService.deleteBook(id);
+    public Void execute() {
+        booksService.deleteBook(id);
+        return null;
     }
 }

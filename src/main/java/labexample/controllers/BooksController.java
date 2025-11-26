@@ -1,8 +1,8 @@
 package labexample.controllers;
 
-import labexample.Command;
 import labexample.commands.*;
-import labexample.service.BooksService;
+import labexample.Book;
+import labexample.BooksService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,33 +18,36 @@ public class BooksController {
         this.booksService = booksService;
     }
 
+    @PostMapping
+    public ResponseEntity<Book> createBook(@RequestBody Book book) {
+        CreateBookCommand command = new CreateBookCommand(booksService, book);
+        return ResponseEntity.ok(command.execute());
+    }
+
     @GetMapping
-    public ResponseEntity<List<String>> getAllBooks() {
-        Command<List<String>> command = new GetAllBooksCommand(booksService);
+    public ResponseEntity<List<Book>> getAllBooks() {
+        GetAllBooksCommand command = new GetAllBooksCommand(booksService);
         return ResponseEntity.ok(command.execute());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getBookById(@PathVariable int id) {
-        Command<String> command = new GetBookByIdCommand(booksService, id);
-        return ResponseEntity.ok(command.execute());
-    }
-
-    @PostMapping
-    public ResponseEntity<String> createBook(@RequestBody String book) {
-        Command<String> command = new CreateBookCommand(booksService, book);
-        return ResponseEntity.ok(command.execute());
+    public ResponseEntity<Book> getBookById(@PathVariable int id) {
+        GetBookByIdCommand command = new GetBookByIdCommand(booksService, id);
+        return command.execute()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateBook(@PathVariable int id, @RequestBody String book) {
-        Command<String> command = new UpdateBookCommand(booksService, id, book);
+    public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book book) {
+        UpdateBookCommand command = new UpdateBookCommand(booksService, id, book);
         return ResponseEntity.ok(command.execute());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteBook(@PathVariable int id) {
-        Command<String> command = new DeleteBookCommand(booksService, id);
-        return ResponseEntity.ok(command.execute());
+    public ResponseEntity<Void> deleteBook(@PathVariable int id) {
+        DeleteBookCommand command = new DeleteBookCommand(booksService, id);
+        command.execute();
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,20 +1,21 @@
 package labexample.commands;
 
 import labexample.Command;
-import labexample.service.BooksService;
+import labexample.Book;
+import labexample.BooksService;
 
-public class CreateBookCommand implements Command<String> {
+public class CreateBookCommand implements Command<Book> {
 
     private final BooksService booksService;
-    private final String book;
+    private final Book book;
 
-    public CreateBookCommand(BooksService booksService, String book) {
+    public CreateBookCommand(BooksService booksService, Book book) {
         this.booksService = booksService;
         this.book = book;
     }
 
     @Override
-    public String execute() {
+    public Book execute() {
         return booksService.createBook(book);
     }
 }

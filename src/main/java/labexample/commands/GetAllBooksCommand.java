@@ -1,11 +1,12 @@
 package labexample.commands;
 
 import labexample.Command;
-import labexample.service.BooksService;
+import labexample.Book;
+import labexample.BooksService;
 
 import java.util.List;
 
-public class GetAllBooksCommand implements Command<List<String>> {
+public class GetAllBooksCommand implements Command<List<Book>> {
 
     private final BooksService booksService;
 
@@ -14,7 +15,7 @@ public class GetAllBooksCommand implements Command<List<String>> {
     }
 
     @Override
-    public List<String> execute() {
+    public List<Book> execute() {
         return booksService.getAllBooks();
     }
 }

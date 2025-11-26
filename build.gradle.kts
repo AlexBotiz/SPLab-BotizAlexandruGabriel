@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.5.7"
@@ -22,6 +24,10 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation ("com.h2database:h2:2.1.214")
+    implementation ("org.projectlombok:lombok:1.18.30")
+    annotationProcessor ("org.projectlombok:lombok:1.18.30")
 
 }
 
