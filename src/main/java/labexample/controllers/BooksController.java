@@ -1,5 +1,7 @@
 package labexample.controllers;
 
+import labexample.AllBooksSubject;
+import labexample.NewBookRequest;
 import labexample.commands.*;
 import labexample.Book;
 import labexample.BooksService;
@@ -19,10 +21,21 @@ public class BooksController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        CreateBookCommand command = new CreateBookCommand(booksService, book);
-        return ResponseEntity.ok(command.execute());
+    public ResponseEntity<Book> createBook(@RequestBody NewBookRequest newBookRequest) {
+        // Creează cartea
+        Book book = new Book(newBookRequest.getTitle());
+
+        // Salvează cartea prin service
+        Book savedBook = booksService.createBook(book);
+
+        // Notifică SSE observers
+        AllBooksSubject.getInstance().add(savedBook);
+
+        return ResponseEntity.ok(savedBook);
     }
+
+
+
 
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks() {
