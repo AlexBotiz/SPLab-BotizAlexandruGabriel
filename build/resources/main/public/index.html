@@ -1,0 +1,26 @@
+<html lang="en">
+<body>
+<h1>All Books</h1>
+<a href="javascript:void(0)" onclick="sendRequest()">Fetch Books</a>
+<div id="sseDiv"></div>
+<script>
+    let source;
+
+    function sendRequest() {
+        if(typeof(EventSource) !== "undefined") {
+            if(source) {
+                source.close();
+            }
+            source = new EventSource(`http://localhost:8080/books-sse`);
+            source.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                // afișăm titlul cărții în loc de ID
+                document.getElementById("sseDiv").innerHTML += data.title + "<br>";
+            };
+        } else {
+            document.getElementById("sseDiv").innerHTML = "Your browser does not support server-sent events.";
+        }
+    }
+</script>
+</body>
+</html>
